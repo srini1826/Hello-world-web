@@ -1,4 +1,2 @@
-FROM tomcat:latest
+FROM tomcat:8
 ADD ./target/Hello-world-web.war /usr/local/tomcat/webapps/
-EXPOSE 80
-CMD["cataline.sh",run]
