@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  hw-web-deployment
+spec:
+  selector:
+    matchLabels:
+      app: hw-web-app
+  replicas: 3
+  template:
+    metadata:
+      name: thw-pod
+      labels:
+        app: hw-web-app
+    spec:
+      containers:
+        - name:  hw-container
+          image: gcr.io/zinc-arc-325018/hello-world-web:demo
+          ports:
+            - containerPort: 8080
+              protocol: TCP
