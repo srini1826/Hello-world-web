@@ -17,5 +17,5 @@ spec:
         - name:  hw-container
           image: gcr.io/zinc-arc-325018/hello-world-web:demo
           ports:
-            - containerPort: 80
+            - containerPort: 8080
               protocol: TCP
