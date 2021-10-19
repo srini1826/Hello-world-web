@@ -6,7 +6,7 @@ spec:
   type: NodePort
   ports:
     - port:  8080
-      targetPort: 80
+      targetPort: 8080
       nodePort: 32001
   selector:
      app: hw-web-app
