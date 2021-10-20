@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name:  hw-web-deployment
+spec:
+  selector:
+    matchLabels:
+      app: hw-web-app
+  replicas: 1
+  template:
+    metadata:
+      name: thw-pod
+      labels:
+        app: hw-web-app
+    spec:
+      containers:
+        - name:  hw-container
+          image: gcr.io/zinc-arc-325018/hello-world-web:demo
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 500m
+              memory: 256Mi
+            limits:
+              cpu: 1000m
+              memory: 512Mi
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name:  hw-service
+spec:
+  type: NodePort
+  ports:
+    - port:  8080
+      targetPort: 80
+      nodePort: 32001
+  selector:
+     app: hw-web-app
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name:  hw
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: hw-web-deployment
+  minReplicas: 1
+  maxReplicas: 5
+  targetCPUUtilizationPercentage: 20
+  
